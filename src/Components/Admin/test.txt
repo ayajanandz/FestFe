@@ -1,0 +1,36 @@
+return(
+        <>
+        <tr key={payee.Email}>
+          <td>{payee.Name}</td>
+          <td>{payee.Email}</td>
+          <td>{payee.TransactionId}</td>
+          <td>{status?<Button
+                variant="contained"
+                onClick={() => verifyUser(email)}
+                className="diffBtn"
+                size="large"
+              >
+                Verify
+              </Button>:<Button
+                variant="contained"
+                //onClick={() => verifyUser(email)}
+                className="diffBtn"
+                size="large"
+              >
+                Verified
+              </Button>
+          }
+            {/* {payee.Verified} <p> </p>
+            {status ? (
+              <AiOutlineCheckCircle
+                key={payee.Email}
+                onClick={() => changestatus(payee.Email)}
+              />
+            ) : (
+              <AiFillCheckCircle onClick={() => changestatus(payee.Email)} />
+            )} */}
+          </td>
+        </tr>
+      </>
+
+    )
