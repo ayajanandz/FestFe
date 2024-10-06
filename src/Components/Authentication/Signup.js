@@ -25,7 +25,6 @@ const Signup = () => {
         if(pics===undefined){
             toast({
                 title: 'Please Select an Image !',
-                // description: "We've created your account for you.",
                 status: 'warning',
                 duration: 5000,
                 isClosable: true,
@@ -99,13 +98,9 @@ const Signup = () => {
                 password,
                 pic
             }
-        //     const config = {
-        //         headers: {
-        //         "Content-type":"application/json",
-        //     }
-        // }
+       
         const response = await axios.post("http://localhost:9000/register", user);
-        // const { data } = await axios.post("http://localhost:9000/register",{name, email,password,pic}, config)
+        
         toast({
             title:"Registration Succesfull, Login Now !",
             status: 'success',
@@ -182,7 +177,7 @@ const Signup = () => {
         
     </FormControl>
 
-    <FormControl id="pic">
+    {/* <FormControl id="pic">
         <FormLabel>Upload your pic</FormLabel>
         <Input
         type="file"
@@ -190,7 +185,7 @@ const Signup = () => {
         accept="image/*"
         onChange={(e)=> postDetails(e.target.files[0])}
         />
-    </FormControl>
+    </FormControl> */}
 
     <Button
      colorScheme='blue'

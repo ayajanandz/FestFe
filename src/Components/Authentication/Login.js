@@ -29,7 +29,7 @@ const Login = () => {
     const[password, setPassword] = useState();
 
     const toast = useToast()
-    const history = useHistory('/chats');
+    const history = useHistory();
    
     const handleClick =() => setShow(!show);
 
@@ -69,11 +69,8 @@ const Login = () => {
         setIsLoggedIn(true);
         setAuthUser(response.data.body);
         setAdmin(response.data.body.IsAdmin);
-        console.log(isLoggedIn);
-        console.log(authUser)
-        // console.log(response.data.body);
-        history.push('/dashboard');
-
+        history.push('/dashboard')
+        
         } 
             
         

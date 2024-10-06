@@ -16,14 +16,19 @@ import {
   Input,
 } from "@chakra-ui/react";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
+import { useToast } from '@chakra-ui/react'
 import { useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import DisplayQR from "./DisplayQR";
 import QRCode from "../../Assets/qr_code_barcode.jpg";
+import photography from '../../Assets/photographyy.jpg';
+import treasurehunt from '../../Assets/treasureHunt.jpg';
+import chess from '../../Assets/chess.jpg';
 
 const Pantheon_1 = () => {
   const [value, setValue] = React.useState("");
+  const toast = useToast();
   const {
     authUser,
     setAuthUser,
@@ -47,12 +52,26 @@ const Pantheon_1 = () => {
     };
    if(value) {
         let response = await axios.post("http://localhost:9000/amuraPayee", payee);
-        
+        console.log("Submitted transaction Id "+response.data.body);
        
-        alert('Status Server: '+ response.data.body);
+        // alert('Status Server: '+ response.data.body);
+        toast({
+          title:"Submitted Transaction Id",
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+          position: "bottom",
+      });
         setValue('')
    }else{
-    alert('input field empty');
+    // alert('input field empty');
+    toast({
+      title:"Invalid Entry",
+      status: 'error',
+      duration: 3000,
+      isClosable: true,
+      position: "bottom",
+  });
    }
 
   
@@ -70,7 +89,7 @@ const Pantheon_1 = () => {
 
   const fetchOtp = async () => {
     let response = await axios.post("http://localhost:9000/otp", { email });
-    console.log(response.data.body);
+    // console.log(response.data.body);
     if (response.data.body.OTPgenerated) {
       setStatus(true);
       setOTP(response.data.body.OTPgenerated);
@@ -115,17 +134,16 @@ const Pantheon_1 = () => {
             <Image
               objectFit="cover"
               maxW={{ base: "100%", sm: "200px" }}
-              src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
+              src={treasurehunt}
               alt="Caffe Latte"
             />
 
             <Stack>
               <CardBody>
-                <Heading size="md">Treasure Hunt</Heading>
+                <Heading size="md" textAlign={'left'}>Treasure Hunt</Heading>
 
                 <Text py="2">
-                  Caffè latte is a coffee beverage of Italian origin made with
-                  espresso and steamed milk.
+                  Who collects all the listed items first takes the trophy !
                 </Text>
               </CardBody>
 
@@ -146,18 +164,18 @@ const Pantheon_1 = () => {
           >
             <Image
               objectFit="cover"
+              
               maxW={{ base: "100%", sm: "200px" }}
-              src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
+              src={photography}
               alt="Caffe Latte"
             />
 
             <Stack>
               <CardBody>
-                <Heading size="md">Photography</Heading>
+                <Heading size="md" textAlign={'left'}>Photography</Heading>
 
                 <Text py="2">
-                  Caffè latte is a coffee beverage of Italian origin made with
-                  espresso and steamed milk.
+                  Challenge your photography with the best photographers in the events. 
                 </Text>
               </CardBody>
 
@@ -180,17 +198,16 @@ const Pantheon_1 = () => {
             <Image
               objectFit="cover"
               maxW={{ base: "100%", sm: "200px" }}
-              src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
+              src={chess}
               alt="Caffe Latte"
             />
 
             <Stack>
               <CardBody>
-                <Heading size="md">The perfect latte</Heading>
+                <Heading size="md" textAlign={'left'}>Brain Games</Heading>
 
                 <Text py="2">
-                  Caffè latte is a coffee beverage of Italian origin made with
-                  espresso and steamed milk.
+                  Indulge yourself in the brainstorming of these games, where u loose focus and you loose the game !
                 </Text>
               </CardBody>
 
@@ -228,6 +245,20 @@ const Pantheon_1 = () => {
         </div>
       </>
     );
+  } else{
+    return (
+      <>
+      <div className="Loggedout">
+      <Box bg="teal" w="95%" p={4} color="white" borderRadius={45} margin={15}>
+               Oops You are Logged Out !
+      </Box>
+      <Button colorScheme="teal" variant="ghost" onClick={() => history.push('/')}>
+                Log Me In
+              </Button>
+  
+      </div>
+    </>
+      )
   }
 };
 
